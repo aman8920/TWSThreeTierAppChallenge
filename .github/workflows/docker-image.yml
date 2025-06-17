@@ -46,10 +46,10 @@ jobs:
         docker build -t $ACR_LOGIN_SERVER/$IMAGE_NAME:$IMAGE_TAG Application-Code/frontend/
         docker push $ACR_LOGIN_SERVER/$IMAGE_NAME:$IMAGE_TAG
 
-- name: Update image repository and tag
-  run: |
-    sed -i "s|repository:.*|repository: $ACR_LOGIN_SERVER/$IMAGE_NAME|" $CHART_PATH/values.yaml
-    sed -i "s|tag:.*|tag: \"$IMAGE_TAG\"|" $CHART_PATH/values.yaml
+    - name: Update image repository and tag
+      run: |
+        sed -i "s|repository:.*|repository: $ACR_LOGIN_SERVER/$IMAGE_NAME|" $CHART_PATH/values.yaml
+        sed -i "s|tag:.*|tag: \"$IMAGE_TAG\"|" $CHART_PATH/values.yaml
 
 
     - name: Set AKS Context
