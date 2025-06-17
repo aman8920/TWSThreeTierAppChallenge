@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'Application-Code/frontend/**'
+
 
 permissions:
   id-token: write
@@ -38,7 +41,8 @@ jobs:
 
     - name: Set IMAGE_TAG
       run: |
-        echo "IMAGE_TAG=${{ github.run_number }}-${GITHUB_SHA::7}" >> $GITHUB_ENV
+        echo "IMAGE_TAG=1.0.0-$(date +%d%m%Y)" >> $GITHUB_ENV
+
 
     - name: Build and Push Docker Image
       run: |
