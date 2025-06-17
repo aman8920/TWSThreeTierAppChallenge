@@ -55,6 +55,6 @@ jobs:
 
     - name: Deploy to AKS with Helm
       run: |
-        helm upgrade --install $GITHUB_ENV $CHART_PATH \
+        helm upgrade --install $IMAGE_NAME $CHART_PATH \
           --namespace $NAMESPACE --create-namespace \
           -f $CHART_PATH/values.yaml
