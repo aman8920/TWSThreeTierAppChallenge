@@ -1,11 +1,8 @@
 name: Build and Deploy to AKS with Helm
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'Application-Code/frontend/**'
+  workflow_dispatch:
+
 
 
 permissions:
