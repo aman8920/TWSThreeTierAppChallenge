@@ -19,7 +19,7 @@ env:
   ACR_NAME: acematureacr                         # without .azurecr.io
   ACR_LOGIN_SERVER: acematureacr.azurecr.io
   IMAGE_NAME: backend
-  CHART_PATH: Application-Code/backendtend/backtend-chart
+  CHART_PATH: Application-Code/backend/backend-chart
   NAMESPACE: default
   AKS_CLUSTER_NAME: AceMatureAKSV2
   RESOURCE_GROUP: ACEProjectRG2
