@@ -39,7 +39,7 @@ ingress:
           pathType: Prefix
           backend:
             service:
-              name: frontend-frontend-chart
+              name: backend-backend-chart
               port:
                 number: 3500
   tls: []
