@@ -52,19 +52,19 @@ resources:
     cpu: 100m
     memory: 100Mi
 
-livenessProbe:
-  httpGet:
-    path: /
-    port: 3000
-  initialDelaySeconds: 30
-  periodSeconds: 10
+# livenessProbe:
+#   httpGet:
+#     path: /
+#     port: 3000
+#   initialDelaySeconds: 30
+#   periodSeconds: 10
 
-readinessProbe:
-  httpGet:
-    path: /
-    port: 3000
-  initialDelaySeconds: 5
-  periodSeconds: 10
+# readinessProbe:
+#   httpGet:
+#     path: /
+#     port: 3000
+#   initialDelaySeconds: 5
+#   periodSeconds: 10
 
 autoscaling:
   enabled: false
