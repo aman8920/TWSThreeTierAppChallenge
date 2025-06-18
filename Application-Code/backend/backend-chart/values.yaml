@@ -44,7 +44,7 @@ resources:
     memory: 200i
   requests:
     cpu: 200m
-    memory: 256Mi
+    memory: 256i
 
 #livenessProbe:
 #  httpGet:
