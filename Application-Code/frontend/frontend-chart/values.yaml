@@ -36,16 +36,21 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
+          backend:
+            service:
+              name: frontend-frontend-chart
+              port:
+                number: 3000
   tls: []
 
 
 resources:
   limits:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 100m
+    memory: 100Mi
   requests:
-    cpu: 250m
-    memory: 256Mi
+    cpu: 1000m
+    memory: 100Mi
 
 livenessProbe:
   httpGet:
