@@ -37,6 +37,11 @@ ingress:
       paths:
         - path: /api
           pathType: Prefix
+          backend:
+            service:
+              name: frontend-frontend-chart
+              port:
+                number: 3500
   tls: []
 
 
