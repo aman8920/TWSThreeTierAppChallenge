@@ -23,8 +23,8 @@ podSecurityContext: {}
 securityContext: {}
 
 service:
-  type: LoadBalancer
-  port: 80
+  type: ClusterIP
+  port: 3500
   targetPort: 3500
 
 ingress:
