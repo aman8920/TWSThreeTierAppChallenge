@@ -29,23 +29,16 @@ service:
 
 ingress:
   enabled: true
-  className: nginx
+  className: "nginx"
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: backend.amanpathakdevops.study
+    - host: amanpathakdevops.study
       paths:
-        - path: /api(/|$)(.*)
+        - path: /api
           pathType: Prefix
-          service:
-            name: api
-            port: 3500
-        - path: /()
-          pathType: Prefix
-          service:
-            name: frontend
-            port: 3000
-  tls: []  # Define this if using HTTPS
+  tls: []
+
 
 
 resources:
