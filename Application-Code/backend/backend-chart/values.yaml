@@ -11,10 +11,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  create: false
+  create: true
   automount: true
-  annotations: {}
-  name: ""
+  annotations: {azure.workload.identity/client-id: 6baabffd-464f-41cf-a940-c11eca500b3b}
+  name: "my-app-sa"
 
 podAnnotations: {}
 podLabels: {}
