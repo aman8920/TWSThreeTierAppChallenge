@@ -2,11 +2,11 @@ name: Build and Deploy to AKS with Helm
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'Application-Code/frontend/**'
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'Application-Code/frontend/**'
 
 
 
