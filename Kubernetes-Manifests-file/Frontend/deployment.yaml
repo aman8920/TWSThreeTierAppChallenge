@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
-  namespace: three-tier
+  name: twsfrontenddeployment
+  namespace: tws-three-tier
   labels:
-    role: frontend
+    role: twsfrontend
     env: demo
 spec: 
   replicas: 1
@@ -15,20 +15,32 @@ spec:
       maxUnavailable: 25%
   selector:
     matchLabels: 
-      role: frontend
+      role: twsfrontend
   template:
     metadata:
       labels:
-        role: frontend
+        role: twsfrontend
     spec: 
-      imagePullSecrets:
-      - name: ecr-registry-secret
       containers:
-      - name: frontend
-        image: 407622020962.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
-        imagePullPolicy: Always
-        env:
-          - name: REACT_APP_BACKEND_URL
-            value: "http://backend.amanpathakdevops.study/api/tasks"
+      - name: twsfrontendcontainer
+        image: twsfrontend:1
+        imagePullPolicy: Never
         ports:
         - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: twsfrontend-service  # Recommended naming convention
+  namespace: tws-three-tier
+  labels:
+    role: twsfrontend
+    env: demo
+spec:
+  type: NodePort  # Changed from ClusterIP for external access
+  selector:
+    role: twsfrontend  # Must match your Deployment's pod labels
+  ports:
+    - port: 81
+      targetPort: 80
+  type: NodePort

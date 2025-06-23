@@ -1,15 +1,19 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const taskSchema = new Schema({
-    task: {
-        type: String,
-        required: true,
-    },
-    completed: {
-        type: Boolean,
-        default: false,
-    },
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../db'); // ✅ Destructure the sequelize instance
+
+const Task = sequelize.define('Task', {
+  task: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  completed: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+}, {
+  tableName: 'tasks120',
+  timestamps: true,
 });
 
-module.exports = mongoose.model("task", taskSchema);
+module.exports = Task;
