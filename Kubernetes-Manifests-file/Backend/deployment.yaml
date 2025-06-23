@@ -1,57 +1,64 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
-  name: api
-  namespace: three-tier
-  labels: 
-    role: api
-    env: demo
-spec: 
+metadata:
+  name: twsapideployment
+  namespace: tws-three-tier
+  labels:
+    role: twsapi
+    
+spec:
   replicas: 2
-  strategy: 
+  strategy:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 25%
-  selector: 
+  selector:
     matchLabels:
-      role: api
+      role: twsapi
   template:
     metadata:
       labels:
-        role: api
+        role: twsapi
     spec:
-      imagePullSecrets:
-      - name: ecr-registry-secret
       containers:
-      - name: api
-        image: 407622020962.dkr.ecr.us-east-1.amazonaws.com/backend:latest
-        imagePullPolicy: Always
+      - name: twsapibackendcontainer
+        image: twsbackend:1
+        imagePullPolicy: Never
         env:
-          - name: MONGO_CONN_STR
-            value: mongodb://mongodb-svc:27017/todo?directConnection=true
-          - name: MONGO_USERNAME
+          - name: DB_TYPE
+            value: "postgresql"
+          - name: DB_HOST
+            value: "twspostgresqlservice.tws-three-tier.svc.cluster.local"
+          - name: DB_PORT
+            value: "5432"
+          - name: DB_NAME
+            value: "appdb"
+          - name: DB_USERNAME
             valueFrom:
               secretKeyRef:
-                name: mongo-sec
+                name: postgres-credentials
                 key: username
-          - name: MONGO_PASSWORD
+          - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: mongo-sec
+                name: postgres-credentials
                 key: password
+          - name: DB_SSL
+            value: "false"
         ports:
         - containerPort: 3500
-        livenessProbe: 
-          httpGet:
-            path: /ok
-            port: 3500
-          initialDelaySeconds: 2
-          periodSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /ok
-            port: 3500
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: twsapibackendservice
+  namespace: tws-three-tier
+spec:
+  ports:
+  - port: 3500
+    protocol: TCP
+    targetPort: 3500
+  type: ClusterIP
+  selector:
+    role: twsapi
